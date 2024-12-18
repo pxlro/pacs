@@ -26,7 +26,7 @@ wget -O "$STACKS_DIR/docker-compose.yml" "$DOCKER_COMPOSE_URL"
 
 # Deploy Docker Stack
 echo "Deploying DockGE with Docker Compose..."
-cd "$STACKS_DIR" && docker-compose up -d
+cd "$STACKS_DIR" && docker compose up -d
 
 echo "---- DockGE Installation Completed ----"
 echo "Access DockGE at your server's IP address with port 5001."
