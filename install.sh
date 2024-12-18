@@ -40,5 +40,5 @@ services:
         }
       VERBOSE_ENABLED: "true"
       VERBOSE_STARTUP: "true"
-volumes:
-  orthanc-storage:
+    volumes:
+    orthanc-storage:
