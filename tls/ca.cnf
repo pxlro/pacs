@@ -24,7 +24,7 @@ ST                     = -
 L                      = Constanta
 O                      = SIA
 OU                     = IT
-CN                     = pacs-staging.siamedical.ro
+CN                     = CA
 emailAddress           = ap@pixelcraft.ro
 
 [ req_attributes ]
