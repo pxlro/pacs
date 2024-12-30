@@ -1,0 +1,25 @@
+version: "3"
+services:
+  pacs:
+    container_name: orthanc
+    image: jodogne/orthanc-plugins
+    ports:
+      - 443:443
+      - 104:104
+    volumes:
+      - ./orthanc.json:/etc/orthanc/orthanc.json:ro
+      - ./orthanc_db:/var/lib/orthanc/db/
+      - ./tls:/tls
+    restart: always
+    environment:
+      DICOM_WEB_PLUGIN_ENABLED: "true"
+      OHIF_PLUGIN_ENABLED: "true"
+      VERBOSE_ENABLED: "true"
+      VERBOSE_STARTUP: "true"
+
+    networks:
+      - pacs
+
+networks:
+  pacs:
+    external: true

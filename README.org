@@ -1,0 +1,39 @@
+
+* Docker Compose File for SIA PACS
+
+=Ohif=:  /(OHIF) Viewer
+
+=Orthanc=: /
+
+*** Create new docker network =pacs=
+#+begin_src bash
+docker network create pacs
+#+end_src
+
+*** Clone This Repo
+#+begin_src bash
+git clone https://github.com/pxlro/pacs.git
+cd pacs
+docker-compose up -d
+#+end_src
+
+It will also create a new /bridge-network/ pacs.
+
+*** Access OHIF and Orthanc
+
+1. To access =OHIF= go to address `https://pacs-staging.siamedical.ro/ohif`.
+2. To access =ORTHANC= webpage go to address `https://pacs-staging.siamedical.ro`
+
+No authentication is required. Not enabled.
+
+*** Import DICOM Studies
+1. You can directly Import DICOM files or Folder from OHIF.
+2. You can directly send images from existing PACS/Machine
+ - AE: SIA
+ - PORT: 104
+ - IP: pacs-staging.siamedical.ro
+3. If you have file locally install httplib2 with pip =python ImportDicomFiles.py localhost 8042 /path/to/input/dir=
+
+*** Generate SSL certificates
+cd /tls
+sh generate-tls.ssh
