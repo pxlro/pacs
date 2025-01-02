@@ -19,23 +19,22 @@ For instance: %s localhost 8042 .
 """ % (sys.argv[0], sys.argv[0], sys.argv[0]))
     exit(-1)
 
-URL = 'http://%s:%d/instances' % (sys.argv[1], int(sys.argv[2]))
+URL = 'https://%s:%d/instances' % (sys.argv[1], int(sys.argv[2]))
 
 success = 0
 
+# Create an Http object with SSL warnings disabled
+h = httplib2.Http(disable_ssl_certificate_validation=True)
 
 # This function will upload a single file to Orthanc through the REST API
 def UploadFile(path):
     global success
 
-    f = open(path, "rb")
-    content = f.read()
-    f.close()
+    with open(path, "rb") as f:
+        content = f.read()
 
     try:
-        sys.stdout.write("Importing %s" % path)
-
-        h = httplib2.Http()
+        sys.stdout.write("Importing %s\n" % path)
 
         headers = { 'content-type' : 'application/dicom' }
 
@@ -43,18 +42,15 @@ def UploadFile(path):
             username = sys.argv[4]
             password = sys.argv[5]
 
-            # h.add_credentials(username, password)
-
             # This is a custom reimplementation of the
             # "Http.add_credentials()" method for Basic HTTP Access
             # Authentication (for some weird reason, this method does
             # not always work)
-            # http://en.wikipedia.org/wiki/Basic_access_authentication
-            headers['authorization'] = 'Basic ' + base64.b64encode(username + ':' + password)       
-            
-        resp, content = h.request(URL, 'POST', 
-                                  body = content,
-                                  headers = headers)
+            headers['authorization'] = 'Basic ' + base64.b64encode((username + ':' + password).encode()).decode()
+
+        resp, content = h.request(URL, 'POST',
+                                  body=content,
+                                  headers=headers)
 
         if resp.status == 200:
             sys.stdout.write(" => success\n")
@@ -62,9 +58,9 @@ def UploadFile(path):
         else:
             sys.stdout.write(" => failure (Is it a DICOM file?)\n")
 
-    except:
+    except Exception as e:
         sys.stdout.write(" => unable to connect (Is Orthanc running? Is there a password?)\n")
-
+        sys.stdout.write(" => Error: %s\n" % str(e))
 
 if os.path.isfile(sys.argv[3]):
     # Upload a single file
@@ -74,6 +70,5 @@ else:
     for root, dirs, files in os.walk(sys.argv[3]):
         for f in files:
             UploadFile(os.path.join(root, f))
-        
 
 print("\nSummary: %d DICOM file(s) have been imported" % success)
