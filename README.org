@@ -21,8 +21,8 @@ It will also create a new /bridge-network/ pacs.
 
 *** Access OHIF and Orthanc
 
-1. To access =OHIF= go to address `https://pacs-staging.siamedical.ro/ohif`.
-2. To access =ORTHANC= webpage go to address `https://pacs-staging.siamedical.ro`
+1. To access =OHIF= go to address https://pacs-staging.siamedical.ro/ohif/.
+2. To access =ORTHANC= webpage go to address https://pacs-staging.siamedical.ro
 
 No authentication is required. Not enabled.
 
@@ -32,8 +32,8 @@ No authentication is required. Not enabled.
  - AE: SIA
  - PORT: 104
  - IP: pacs-staging.siamedical.ro
-3. If you have file locally install httplib2 with pip =python ImportDicomFiles.py localhost 8042 /path/to/input/dir=
+3. If you have file locally install httplib2 with pip =python ImportDicomFiles.py localhost 443 /path/to/input/dir=
 
 *** Generate SSL certificates
-cd /tls
-sh generate-tls.ssh
+1. cd /tls
+2. sh generate-tls.ssh
