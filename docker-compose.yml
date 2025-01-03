@@ -8,7 +8,7 @@ services:
       - 104:104
     volumes:
       - ./orthanc.json:/etc/orthanc/orthanc.json:ro
-      - ./orthanc_db:/var/lib/orthanc/db/
+      - /mnt/pacs_storage:/var/lib/orthanc/db/
       - ./tls:/tls
     restart: always
     environment:
