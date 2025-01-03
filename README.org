@@ -35,5 +35,7 @@ No authentication is required. Not enabled.
 3. If you have file locally install httplib2 with pip =python ImportDicomFiles.py localhost 443 /path/to/input/dir=
 
 *** Generate SSL certificates
-1. cd /tls
-2. sh generate-tls.ssh
+#+begin_src bash
+cd /tls
+sh generate-tls.ssh
+#+end_src
