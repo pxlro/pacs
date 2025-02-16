@@ -1,14 +1,13 @@
-version: "3"
 services:
   pacs:
     container_name: orthanc
     image: jodogne/orthanc-plugins
     ports:
-      - 443:443
+      - 4431:443
       - 104:104
     volumes:
       - ./orthanc.json:/etc/orthanc/orthanc.json:ro
-      - /mnt/pacs_storage:/var/lib/orthanc/db/
+      - ./pacs_storage:/var/lib/orthanc/db/
       - ./tls:/tls
     restart: always
     environment:
@@ -18,8 +17,8 @@ services:
       VERBOSE_STARTUP: "true"
 
     networks:
-      - pacs
+      - bridge
 
 networks:
-  pacs:
+  bridge:
     external: true
